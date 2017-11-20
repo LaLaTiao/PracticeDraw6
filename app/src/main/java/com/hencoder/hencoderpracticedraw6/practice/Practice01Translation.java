@@ -1,5 +1,6 @@
 package com.hencoder.hencoderpracticedraw6.practice;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Outline;
 import android.graphics.Path;
@@ -21,6 +22,9 @@ import static com.hencoder.hencoderpracticedraw6.Utils.dpToPixel;
 public class Practice01Translation extends RelativeLayout {
     Button animateBt;
     ImageView imageView;
+    //copy自sample,当版本为5.0以前,没有z轴
+    int stateCount = SDK_INT > Build.VERSION_CODES.LOLLIPOP ? 6 : 4;
+    int state = 0;
 
     public Practice01Translation(Context context) {
         super(context);
@@ -46,9 +50,34 @@ public class Practice01Translation extends RelativeLayout {
         }
 
         animateBt.setOnClickListener(new OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(final View v) {
                 // TODO 在这里处理点击事件，通过 View.animate().translationX/Y/Z() 来让 View 平移
+                switch (state) {
+                    case 0:
+                        imageView.animate().translationX(dpToPixel(200));
+                        break;
+                    case 1:
+                        imageView.animate().translationX(dpToPixel(0));
+                        break;
+                    case 2:
+                        imageView.animate().translationY(dpToPixel(100));
+                        break;
+                    case 3:
+                        imageView.animate().translationY(dpToPixel(0));
+                        break;
+                    case 4:
+                        imageView.animate().translationZ(dpToPixel(80));
+                        break;
+                    case 5:
+                        imageView.animate().translationZ(dpToPixel(0));
+                        break;
+                }
+                state++;
+                if (state == stateCount) {
+                    state = 0;
+                }
             }
         });
     }
