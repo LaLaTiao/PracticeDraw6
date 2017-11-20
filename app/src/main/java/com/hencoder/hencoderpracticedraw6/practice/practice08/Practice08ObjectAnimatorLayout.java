@@ -1,8 +1,10 @@
 package com.hencoder.hencoderpracticedraw6.practice.practice08;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
@@ -11,6 +13,7 @@ import com.hencoder.hencoderpracticedraw6.R;
 public class Practice08ObjectAnimatorLayout extends RelativeLayout {
     Practice08ObjectAnimatorView view;
     Button animateBt;
+    private ObjectAnimator mAnimator;
 
     public Practice08ObjectAnimatorLayout(Context context) {
         super(context);
@@ -38,6 +41,10 @@ public class Practice08ObjectAnimatorLayout extends RelativeLayout {
                 // 1. 用 ObjectAnimator 创建 Animator 对象
                 // 2. 用 start() 执行动画
                 // *. 记得在 Practice08ObjectAnimatorView 中为 progress 添加 setter/ getter 方法！
+                mAnimator = ObjectAnimator.ofFloat(view, "progress", 0, 88);
+                mAnimator.setDuration(2333);
+                mAnimator.setInterpolator(new BounceInterpolator());
+                mAnimator.start();
             }
         });
     }
